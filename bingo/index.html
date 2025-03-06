@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplayer Bingo</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="join-screen" class="screen">
+            <h1>Multiplayer Bingo</h1>
+            <div class="join-options">
+                <button id="create-room">Create New Room</button>
+                <div id="room-created" class="hidden">
+                    <p>Room created! Share this ID with your friend:</p>
+                    <div class="room-id-display">
+                        <input type="text" id="new-room-id" readonly maxlength="8" pattern="[0-9]*">
+                        <button id="copy-room-id">Copy</button>
+                    </div>
+                </div>
+                <div class="join-room">
+                    <input type="text" id="room-id" placeholder="Enter 8-digit Room ID" maxlength="8" pattern="[0-9]*" inputmode="numeric">
+                    <button id="join-room">Join Room</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="game-screen" class="screen hidden">
+            <div class="game-header">
+                <h2>Room: <span id="current-room"></span></h2>
+                <div class="player-info">
+                    <span>Player: <span id="player-name"></span></span>
+                    <span>Turn: <span id="current-turn"></span></span>
+                </div>
+            </div>
+            
+            <div class="game-board">
+                <div id="bingo-grid"></div>
+            </div>
+
+            <div class="game-controls">
+                <button id="draw-number">Draw Number</button>
+                <div class="number-display">
+                    <span>Last Number: </span>
+                    <span id="last-number">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="firebase-config.js"></script>
+    <script src="game.js"></script>
+</body>
+</html> 

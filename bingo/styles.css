@@ -1,0 +1,343 @@
+:root {
+    /* Light theme variables */
+    --bg-primary: #f0f2f5;
+    --bg-secondary: #ffffff;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666666;
+    --accent-color: #1a73e8;
+    --accent-hover: #1557b0;
+    --border-color: #dee2e6;
+    --cell-bg: #f8f9fa;
+    --cell-hover: #e9ecef;
+    --cell-marked: #d4edda;
+    --cell-marked-border: #c3e6cb;
+    --success-bg: #e8f5e9;
+    --success-text: #2e7d32;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #1a1a1a;
+        --bg-secondary: #2d2d2d;
+        --text-primary: #ffffff;
+        --text-secondary: #b3b3b3;
+        --accent-color: #4dabf7;
+        --accent-hover: #339af0;
+        --border-color: #404040;
+        --cell-bg: #3d3d3d;
+        --cell-hover: #4d4d4d;
+        --cell-marked: #2d4a3e;
+        --cell-marked-border: #3d5a4e;
+        --success-bg: #2d4a3e;
+        --success-text: #4caf50;
+        --shadow-color: rgba(0, 0, 0, 0.3);
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.6;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+}
+
+.screen {
+    background-color: var(--bg-secondary);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 4px 20px var(--shadow-color);
+    transform: translateY(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.screen:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px var(--shadow-color);
+}
+
+.hidden {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Join Screen Styles */
+#join-screen {
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+}
+
+#join-screen h1 {
+    color: var(--accent-color);
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px var(--shadow-color);
+}
+
+.join-options {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.join-room {
+    display: flex;
+    gap: 10px;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+}
+
+button {
+    padding: 12px 24px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+button:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Game Screen Styles */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.game-header h2 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.player-info {
+    display: flex;
+    gap: 20px;
+    color: var(--text-secondary);
+}
+
+.game-board {
+    margin: 20px 0;
+    animation: fadeIn 0.5s ease;
+}
+
+#bingo-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.bingo-cell {
+    aspect-ratio: 1;
+    background-color: var(--cell-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.bingo-cell:hover {
+    background-color: var(--cell-hover);
+    transform: scale(1.05);
+}
+
+.bingo-cell.marked {
+    background-color: var(--cell-marked);
+    border-color: var(--cell-marked-border);
+    animation: markCell 0.3s ease;
+}
+
+.bingo-cell.winning {
+    animation: winningCell 1s ease infinite;
+}
+
+.game-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid var(--border-color);
+}
+
+.number-display {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+.room-id-display {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.room-id-display input {
+    flex: 1;
+    background-color: var(--cell-bg);
+    font-weight: bold;
+    text-align: center;
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+#room-created {
+    background-color: var(--success-bg);
+    padding: 20px;
+    border-radius: 12px;
+    margin: 15px 0;
+    animation: slideIn 0.3s ease;
+}
+
+#room-created p {
+    margin-bottom: 10px;
+    color: var(--success-text);
+    font-weight: 600;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes markCell {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes winningCell {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+    }
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    .screen {
+        padding: 20px;
+    }
+
+    .game-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .player-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .game-controls {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    #bingo-grid {
+        gap: 8px;
+    }
+
+    .bingo-cell {
+        font-size: 16px;
+    }
+} 
