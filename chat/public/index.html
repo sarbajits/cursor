@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Chat App</title>
+    <meta name="theme-color" content="#128C7E">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <!-- Add notification sound -->
+    <audio id="notificationSound" src="https://raw.githubusercontent.com/microsoft/fluentui-system-icons/main/sounds/notification-default.mp3"></audio>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Screen -->
+        <div class="login-screen" id="loginScreen">
+            <div class="login-card">
+                <h2>Welcome to Private Chat</h2>
+                <div class="input-group">
+                    <input type="text" id="usernameInput" placeholder="Enter your username" maxlength="20">
+                    <button id="enterChat">Start Chatting</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Chat Interface -->
+        <div class="chat-app hidden" id="chatApp">
+            <!-- Users List Sidebar -->
+            <div class="users-sidebar">
+                <div class="current-user-header">
+                    <span id="currentUser"></span>
+                    <div class="header-actions">
+                        <button id="themeToggle" class="theme-btn">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button id="leaveChat" class="leave-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="search-box">
+                    <input type="text" id="userSearch" placeholder="Search users...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="users-list" id="usersList">
+                    <!-- Users will be populated here -->
+                </div>
+            </div>
+
+            <!-- Chat Area -->
+            <div class="chat-area">
+                <!-- Initial State -->
+                <div class="no-chat-selected" id="noChatSelected">
+                    <i class="fas fa-comments"></i>
+                    <h2>Select a user to start chatting</h2>
+                </div>
+
+                <!-- Active Chat -->
+                <div class="active-chat hidden" id="activeChat">
+                    <div class="chat-header">
+                        <div class="chat-user-info">
+                            <span id="chatWithUser"></span>
+                            <div class="user-status">
+                                <span class="online-status" id="userStatus"></span>
+                                <span class="typing-status" id="typingStatus"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-messages" id="chatMessages"></div>
+                    <div class="chat-input">
+                        <input type="text" id="messageInput" placeholder="Type a message...">
+                        <button id="sendMessage">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html> 
