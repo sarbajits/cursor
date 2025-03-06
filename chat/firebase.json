@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "silenttalk",
     "public": "y",
     "ignore": [
       "firebase.json",
